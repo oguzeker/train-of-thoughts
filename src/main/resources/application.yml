@@ -1,0 +1,43 @@
+server:
+  port: ${TRAIN_OF_THOUGHTS_PORT:9090}
+
+spring:
+  application:
+    name: train-of-thoughts
+  main:
+    banner-mode: OFF
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQL9Dialect
+        generate-ddl: true
+        ddl-auto: update
+    database: postgresql
+
+  datasource:
+    initialization-mode: always
+    url: ${POSTGRES_DB_URL:jdbc:postgresql://localhost:5432/postgres}
+    username: postgres
+    password: kbox123
+
+swagger:
+  api-info:
+    title: KBOX GLOBAL - Train of Thoughts Demo Application
+    description: In this web page, you can interact with API resources of Train of Thoughts Demo Application
+    version: 0.0.1-SNAPSHOT
+    terms-of-service-url: 'https://generator.lorem-ipsum.info/terms-and-conditions'
+    contact:
+      name: Oguz Erhan Eker
+      url: 'https://www.linkedin.com/in/oguzerhaneker/'
+      email: 'eker.oguz@gmail.com'
+    license: 'Apache License Version 2.0'
+    license-url: 'https://www.apache.org/licenses/LICENSE-2.0'
+    vendor-extensions:
+      -
+        name: KBOX GLOBAL
+        value: Train of Thoughts Demo Application
+
+train-of-thoughts:
+  page-size: 20
+  date-time-period: 30

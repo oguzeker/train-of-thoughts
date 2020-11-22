@@ -1,0 +1,20 @@
+version: "3.8"
+
+services:
+   postgres-db:
+      image: postgres:13.1
+      restart: always
+      ports:
+         - "5432:5432"
+      environment:
+         POSTGRES_PASSWORD: kbox123
+
+   train-of-thoughts:
+      image: train-of-thoughts
+      build: ./
+      container_name: train-of-thoughts
+      ports:
+         - "9090:9090"
+      environment:
+         TRAIN_OF_THOUGHTS_PORT: 9090
+         POSTGRES_DB_URL: jdbc:postgresql://postgres-db:5432/postgres

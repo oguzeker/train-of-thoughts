@@ -1,0 +1,74 @@
+= Train of Thoughts Demo Application
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 4
+:sectlinks:
+
+== Summary
+
+This is a demo project implemented for `*Kbox Global*` interview rounds of *2020*. This is a just simple application to implement a common social media use-case seen below:
+
+  Joseph Kamillo viewed your profile on 17th of November, 2020.
+
+== Motivation
+
+We aim to demonstrate how the database design could be built with the most efficient schema in terms of storage space, latency and throughput.
+
+== Code style
+
+This project uses https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller[`Model-View-Controller`] pattern for the directory structure and resposibility distribution among layers of abstraction.
+
+We deliberately chose not to employ https://en.wikipedia.org/wiki/Entity-control-boundary[`Entity-Control-Boundary`] pattern for practicality.
+
+image:https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat[js-standard-style]
+
+== Tech/framework used
+
+Project was built with the following technologies:
+
+- https://www.oracle.com/java/technologies/javase-jdk11-downloads.html[Java 11]
+- https://spring.io/projects/spring-boot[Spring-Boot]
+- https://www.postgresql.org/[PostgreSQL]
+- https://maven.apache.org/[Maven]
+- https://www.docker.com/[Docker]
+
+Please make sure that you have your local environment set up properly before installation and use.
+
+== Installation
+
+To build and run the application, you need to separately run the following commands at the root directory of the project:
+
+ mvn install
+
+ docker-compose up -d
+
+After that, run the following command to check and see the docker containers running in the background.
+
+  docker ps
+
+== Basic Flow
+
+On startup, the application populates the database with dummy data so as to make the demo application easier to test. Still, you can manually perform actions through the `Rest API`.
+
+== Components
+
+This application uses *Swagger UI* libraries to provide an interactive web interface. Please make sure to visit `*http://$HOSTNAME:9090/swagger-ui.html*` for API reference. On this screen, you can directly interact with `*REST API*` resources of the demo application.
+
+== Design Choices and Technical Discussion
+
+. How did you design the database?
+** We utilized table partitions and indexes on table structure and `Lazy-Initialization` strategy on `Hibernate ORM` level.
+
+. Do you delete any data from the database?
+** In today's world, cloud has almost become the mainstream for any `IT` application and storage is becoming cheaper every day. So we shall not be removing data from our database. This is also because old data could be used as audit logs later on.
+
+. Do you have any periodic task type of batch jobs to maintain
+data?
+** Since we chose not to delete any records `(insert-only database)`, we would not need any scheduled jobs such as `Quartz` and/or `chron`. However we might still need an automated logic perhaps like a database trigger in order to create additional partitions to the views history table.
+
+. What type of compromise (e.g. tradeoff between *storage-on-disk* vs. *latency-in-retrieval*) did you see?
+** We used `index` as a common best-practice approach for lower latency and better throughput. Indexes perform far better when used together with `table partitions`. Had we not created partitions for the history table, performance of its index would decrease drastically over time as the number of records increased. Because queries would be performed over a huge and bulky set of data instead of a rather smaller segment of the actual table. Also, chunks of data are fetched from the database *lazily* using `Hibernate ORM` 's `Lazy-Initialization` feature. This way, we can avoid making unnecessary queries while retrieving the required information from our database.
+
+
