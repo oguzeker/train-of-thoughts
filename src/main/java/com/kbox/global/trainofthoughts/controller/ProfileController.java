@@ -1,4 +1,4 @@
-package com.kbox.global.trainofthoughts.controller.impl;
+package com.kbox.global.trainofthoughts.controller;
 
 import com.kbox.global.trainofthoughts.configuration.SwaggerConfiguration;
 import com.kbox.global.trainofthoughts.dto.ProfileDto;
