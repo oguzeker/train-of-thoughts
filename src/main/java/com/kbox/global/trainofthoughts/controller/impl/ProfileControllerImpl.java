@@ -1,6 +1,6 @@
-package com.kbox.global.trainofthoughts.controller;
+package com.kbox.global.trainofthoughts.controller.impl;
 
-import com.kbox.global.trainofthoughts.controller.impl.ProfileController;
+import com.kbox.global.trainofthoughts.controller.ProfileController;
 import com.kbox.global.trainofthoughts.dto.ProfileDto;
 import com.kbox.global.trainofthoughts.dto.ProfileWithViewHistoryDto;
 import com.kbox.global.trainofthoughts.service.ProfileService;
