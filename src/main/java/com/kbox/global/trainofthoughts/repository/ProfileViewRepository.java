@@ -8,6 +8,9 @@ import java.util.stream.Stream;
 
 public interface ProfileViewRepository extends JpaRepository<ProfileView, Long> {
 
+    /**
+     * Here, we are not using LAZY INITIALIZATION functionality at all.
+     */
     Stream<ProfileView> findByObjectProfileIdAndCreatedOnAfter(Long objectId, LocalDateTime dateTimeThreshold);
 
 }

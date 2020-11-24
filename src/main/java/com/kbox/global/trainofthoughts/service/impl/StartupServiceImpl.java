@@ -26,7 +26,7 @@ public class StartupServiceImpl implements StartupService {
     private static final int NUMBER_ZERO = 0;
     private static final int NUMBER_ONE = 1;
     private static final int NUMBER_FIFTY = 50;
-    private static final int SIXTY = 60;
+    private static final int NUMBER_SIXTY = 60;
     private static final Faker FAKER = new Faker();
 
     private final ProfileRepository profileRepository;
@@ -54,7 +54,7 @@ public class StartupServiceImpl implements StartupService {
 
     private void persistProfileView() {
         Instant now = Instant.now();
-        Instant before = now.minus(Duration.ofDays(SIXTY));
+        Instant before = now.minus(Duration.ofDays(NUMBER_SIXTY));
 
         profileRepository.findAll().forEach(actor -> {
             int objectCount = NUMBER_ZERO;

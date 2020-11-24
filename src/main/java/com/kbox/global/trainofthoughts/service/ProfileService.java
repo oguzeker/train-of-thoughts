@@ -7,6 +7,8 @@ public interface ProfileService {
 
     ProfileDto getProfile(Long profileId);
 
+    ProfileWithViewHistoryDto getProfileWithViewHistory_Alternate(Long profileId);
+
     ProfileWithViewHistoryDto getProfileWithViewHistory(Long profileId);
 
 }
